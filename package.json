@@ -1,0 +1,15 @@
+{
+  "name": "selenium-dusk",
+  "version": "1.0.0",
+  "description": "Convert Selenium JSON test files to Laravel Dusk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Red Robot Digital Ltd",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "yargs": "^15.3.1"
+  }
+}
