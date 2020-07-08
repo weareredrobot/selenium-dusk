@@ -5,7 +5,7 @@ namespace Tests\Browser;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class RENAMETest extends DuskTestCase
+class {{testClassName}} extends DuskTestCase
 {
     {{method}}
 }
