@@ -16,7 +16,7 @@ require('yargs')
     }, (argv) => 
     {
         var input = argv.path;
-        var ouput = argv.output;
+        var output = argv.output;
 
         files.read(input, function(data){
             if(data["err"]){
