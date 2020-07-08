@@ -11,5 +11,11 @@ module.exports = {
                 callback({data: data});
             }
         });
+    },
+    write: function (path, data, callback){
+        fs.writeFile(path, data, function(err){
+            if(err) callback(0);
+            callback(1);
+        })
     }
 }
