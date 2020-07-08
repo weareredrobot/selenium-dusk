@@ -1,4 +1,4 @@
-const files = require("./fileSystem");
+const files = require("./src/fileSystem");
 
 require('yargs')
     .command('$0 [path]', 'Convert Selenium test to Dusk test', (yargs) => {
