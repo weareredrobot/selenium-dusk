@@ -115,3 +115,4 @@ dist
 
 *.side
 *.php
+.vscode/
