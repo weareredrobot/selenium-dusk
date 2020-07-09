@@ -1,9 +1,9 @@
-const   files = require("./src/fileSystem"),
-        convert = require('./src/convert'),
-        Handlebars = require('handlebars');
-        
+const Handlebars = require('handlebars');
+const files = require('./src/fileSystem');
+const convert = require('./src/convert');
 
-var seleniumFile, templateFile, templateFunctionFile, templateArrayFunctionFile = [], counter = 0;
+const templateArrayFunctionFile = [];
+let counter = 0;
 
 require('yargs')
     .command('$0 [path]', 'Convert Selenium test to Dusk test', (yargs) => {
