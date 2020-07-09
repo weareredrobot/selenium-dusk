@@ -46,7 +46,7 @@ require('yargs')
                         var templateFunctionFile = Handlebars.compile(data.data);
 
                         for(var i = 0; i < seleniumFile.tests.length; i++){
-                            convert.commands(uploadsBasePath, seleniumFile.tests[i].commands, i)
+                            convert.convert(uploadsBasePath, seleniumFile.tests[i].commands, i)
                             .then(function(data){
                                 var tempTemplateFunctionFile = templateFunctionFile;
 
