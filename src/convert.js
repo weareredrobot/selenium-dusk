@@ -1,24 +1,23 @@
-const dusk = require("./commands/dusk");
-
 module.exports = {
-    commands: function(commands, counter)
+    commands: function(typeName, commands, counter)
     {
+        const type = require("./commands/" + typeName);
         var duskTest = "";
 
         return new Promise((resolve, reject) => {
             for(var i = 0; i < commands.length; i++){
-                if(commands[i].command in global && typeof global[commands[i].command] === "function"){
+                if(commands[i].command in type && typeof type[commands[i].command] === "function"){
 
                     if(commands[i].targets.length > 0){
 
                         getCSSFinder(commands[i].targets, function(cssPath){
-                            var duskMethod = dusk[commands[i].command](cssPath, commands[i].value, commands[i].target);
+                            var duskMethod = type[commands[i].command](cssPath, commands[i].value, commands[i].target);
                             duskTest += duskMethod;
                         })
 
                     }
                     else{
-                        var duskMethod = dusk[commands[i].command](commands[i].target);
+                        var duskMethod = type[commands[i].command](commands[i].target);
                         duskTest += duskMethod;
                     }
                 }

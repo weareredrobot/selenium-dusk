@@ -16,8 +16,8 @@ require('yargs')
                 default: '/',
                 description: 'Output path of Dusk tests'
             })
-            .option('command', {
-                alias: 'c',
+            .option('type', {
+                alias: 't',
                 type: 'string',
                 default: 'dusk',
                 description: 'Choose to what commands you want to convert to'
@@ -26,7 +26,7 @@ require('yargs')
     {
         var input = argv.path;
         var output = argv.output;
-        var command = argv.command;
+        var type = argv.type;
 
         var commandPath = "./src/commands/" + command + ".js";
 
@@ -48,7 +48,7 @@ require('yargs')
                                 var templateFunctionFile = data.data;
         
                                 for(var i = 0; i < seleniumFile.tests.length; i++){
-                                    convert.commands(seleniumFile.tests[i].commands, i)
+                                    convert.commands(type, seleniumFile.tests[i].commands, i)
                                     .then(function(data){
                                         var tempTemplateFunctionFile = templateFunctionFile;
                                         var functionName = seleniumFile.tests[data["counter"]].name.replace(" ", "");
