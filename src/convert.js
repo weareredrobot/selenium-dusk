@@ -1,4 +1,4 @@
-const { indexOf } = require("lodash");
+const dusk = require("./commands/dusk");
 
 module.exports = {
     commands: function(commands, counter)
@@ -12,14 +12,13 @@ module.exports = {
                     if(commands[i].targets.length > 0){
 
                         getCSSFinder(commands[i].targets, function(cssPath){
-                            var duskMethod = global[commands[i].command](cssPath, commands[i].value, commands[i].target);
+                            var duskMethod = dusk[commands[i].command](cssPath, commands[i].value, commands[i].target);
                             duskTest += duskMethod;
                         })
 
                     }
                     else{
-
-                        var duskMethod = global[commands[i].command](commands[i].target);
+                        var duskMethod = dusk[commands[i].command](commands[i].target);
                         duskTest += duskMethod;
                     }
                 }
@@ -31,27 +30,6 @@ module.exports = {
             }
         })
     }
-}
-
-global.click = function click(cssPath){
-    return '$browser->assertPresent("' + cssPath + '")->click("' + cssPath + '");\n';
-}
-
-global.open = function open(target){
-    return '$browser->visit("' + target + '");\n'
-}
-
-global.type = function type(cssPath, value){
-    return '$browser->type("' + cssPath + '","' + value + '");\n'
-}
-
-global.setWindowSize = function setWindowSize(value){
-    var split = value.split("x");
-    return '$browser->resize(' + split[0] + ', ' + split[1] + ');\n' 
-}
-
-global.sendKeys = function sendKeys(cssPath, value){
-    return convertKey(cssPath, value);
 }
 
 function getCSSFinder(targets, callback){
@@ -69,31 +47,4 @@ function getCSSFinder(targets, callback){
             callback("");
         }
     }
-}
-
-function convertKey(cssPath, key)
-{
-    const keyConversion = {
-        '{enter}': "${KEY_ENTER}"
-    }
-
-    var found = false;
-
-    for(var i = 0; i < Object.keys(keyConversion).length; i++){
-
-        if(keyConversion[Object.keys(keyConversion)[i]] == key){
-            found = true;
-            return '$browser->keys("' + cssPath + '", "' + Object.keys(keyConversion)[i] + '");\n';
-        }
-
-        if(i + 1 >= Object.keys(keyConversion).length && !found){
-            return "Couldn't find key";
-        }
-
-    }
-}
-
-function sanitizeString(str){
-    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
-    return str.trim();
 }
