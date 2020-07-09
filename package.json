@@ -9,6 +9,7 @@
   "author": "Red Robot Digital Ltd",
   "license": "ISC",
   "dependencies": {
+    "handlebars": "^4.7.6",
     "lodash": "^4.17.15",
     "yargs": "^15.3.1"
   }
