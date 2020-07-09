@@ -12,10 +12,21 @@ module.exports = {
             }
         });
     },
+
     write: function (path, data, callback){
         fs.writeFile(path, data, function(err){
             if(err) callback(0);
             callback(1);
+        })
+    },
+
+    exists: function(path, callback){
+        fs.access(path, fs.constants.F_OK, (err) => {
+            if(err){
+                callback(0);
+            } else {
+                callback(1);
+            }
         })
     }
 }
