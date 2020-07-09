@@ -1,22 +1,22 @@
-module.exports = {
-    click: function click(cssPath){
+module.exports = function() {
+    this.click = function(cssPath){
         return '$browser->assertPresent("' + cssPath + '")->click("' + cssPath + '");\n';
-    },
+    }
     
-    open: function open(target){
+    this.open = function(target){
         return '$browser->visit("' + target + '");\n'
-    },
+    }
 
-    type:function type(cssPath, value){
+    this.type = function(cssPath, value){
         return '$browser->type("' + cssPath + '","' + value + '");\n'
-    },
+    }
 
-    setWindowSize: function setWindowSize(value){
+    this.setWindowSize = function(value){
         var split = value.split("x");
         return '$browser->resize(' + split[0] + ', ' + split[1] + ');\n' 
-    },
+    }
 
-    sendKeys: function sendKeys(cssPath, value){
+    this.sendKeys = function(cssPath, value){
         return convertKey(cssPath, value);
     }
 }

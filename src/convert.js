@@ -1,23 +1,24 @@
 module.exports = {
-    commands: function(typeName, commands, counter)
+    commands: function(commands, counter)
     {
-        const type = require("./commands/" + typeName);
+        const Dusk = require('./commands/dusk');
+        const converter = new Dusk();
+
         var duskTest = "";
 
         return new Promise((resolve, reject) => {
             for(var i = 0; i < commands.length; i++){
-                if(commands[i].command in type && typeof type[commands[i].command] === "function"){
+                if(commands[i].command in converter && typeof converter[commands[i].command] === "function"){
 
                     if(commands[i].targets.length > 0){
 
                         getCSSFinder(commands[i].targets, function(cssPath){
-                            var duskMethod = type[commands[i].command](cssPath, commands[i].value, commands[i].target);
+                            var duskMethod = converter[commands[i].command](cssPath, commands[i].value, commands[i].target);
                             duskTest += duskMethod;
                         })
 
-                    }
-                    else{
-                        var duskMethod = type[commands[i].command](commands[i].target);
+                    } else{
+                        var duskMethod = converter[commands[i].command](commands[i].target);
                         duskTest += duskMethod;
                     }
                 }

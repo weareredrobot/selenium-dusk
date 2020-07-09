@@ -26,61 +26,53 @@ require('yargs')
     {
         var input = argv.path;
         var output = argv.output;
-        var type = argv.type;
+        var uploadsBasePath = argv.uploadsBasePath;
 
-        var commandPath = "./src/commands/" + command + ".js";
+        files.read(input, function(data){
+            if(data["err"]){
+                console.log("Error reading the file (possibly wrong input)")
+            }
+            else{
+                console.log("Received input file");
 
-        files.exists(commandPath, function(status){
-            if(status){
-                files.read(input, function(data){
-                    if(data["err"]){
-                        console.log("Error reading the file (possibly wrong input)")
-                    }
-                    else{
-                        console.log("Received input file");
-        
-                        var seleniumFile = JSON.parse(data["data"]);
-        
-                        files.read('./src/templates/template.txt', function(data){
-                            var templateFile = data.data;
-        
-                            files.read('./src/templates/templateFunction.txt', function(data){
-                                var templateFunctionFile = data.data;
-        
-                                for(var i = 0; i < seleniumFile.tests.length; i++){
-                                    convert.commands(type, seleniumFile.tests[i].commands, i)
-                                    .then(function(data){
-                                        var tempTemplateFunctionFile = templateFunctionFile;
-                                        var functionName = seleniumFile.tests[data["counter"]].name.replace(" ", "");
-        
-                                        tempTemplateFunctionFile = tempTemplateFunctionFile.replace("{{name}}", functionName);
-                                        tempTemplateFunctionFile = tempTemplateFunctionFile.replace("{{function}}", data["function"]);
-        
-                                        templateArrayFunctionFile.push(tempTemplateFunctionFile);
+                var seleniumFile = JSON.parse(data["data"]);
+
+                files.read('./src/templates/template.txt', function(data){
+                    var templateFile = data.data;
+
+                    files.read('./src/templates/templateFunction.txt', function(data){
+                        var templateFunctionFile = data.data;
+
+                        for(var i = 0; i < seleniumFile.tests.length; i++){
+                            convert.commands(seleniumFile.tests[i].commands, i)
+                            .then(function(data){
+                                var tempTemplateFunctionFile = templateFunctionFile;
+                                var functionName = seleniumFile.tests[data["counter"]].name.replace(" ", "");
+
+                                tempTemplateFunctionFile = tempTemplateFunctionFile.replace("{{name}}", functionName);
+                                tempTemplateFunctionFile = tempTemplateFunctionFile.replace("{{function}}", data["function"]);
+
+                                templateArrayFunctionFile.push(tempTemplateFunctionFile);
+                            })
+                            .then(function(){
+                                counter++;
+
+                                if(counter >= seleniumFile.tests.length){
+                                    templateFile = templateFile.replace("{{method}}", templateArrayFunctionFile.join(''));
+                                    templateFile = templateFile.replace("{{testClassName}}", seleniumFile.name)
+
+                                    files.write(output + "/" + seleniumFile.name + ".php", templateFile, function(status){
+                                        if(status){
+                                            console.log("Test converted");
+                                        } else {
+                                            console.log("Failed to convert test");
+                                        }
                                     })
-                                    .then(function(){
-                                        counter++;
-        
-                                        if(counter >= seleniumFile.tests.length){
-                                            templateFile = templateFile.replace("{{method}}", templateArrayFunctionFile.join(''));
-                                            templateFile = templateFile.replace("{{testClassName}}", seleniumFile.name)
-        
-                                            files.write(output + "/" + seleniumFile.name + ".php", templateFile, function(status){
-                                                if(status){
-                                                    console.log("Test converted");
-                                                } else {
-                                                    console.log("Failed to convert test");
-                                                }
-                                            })
-                                        }    
-                                    })
-                                }
-                            });
-                        });
-                    }
-                })
-            } else {
-                console.log("Sorry, " + command + " is not supported");
+                                }    
+                            })
+                        }
+                    });
+                });
             }
         })
     })
