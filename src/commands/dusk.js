@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = function() {
     this.click = function(cssPath){
         return '$browser->assertPresent("' + cssPath + '")->click("' + cssPath + '");\n';
@@ -7,7 +9,11 @@ module.exports = function() {
         return '$browser->visit("' + target + '");\n'
     }
 
-    this.type = function(cssPath, value){
+    this.type = function(cssPath, value, target, uploadsBasePath){
+        if(value !== path.basename(value) && uploadsBasePath != ""){
+            var split = value.split("/");
+            value = uploadsBasePath + split[split.length-1];
+        }
         return '$browser->type("' + cssPath + '","' + value + '");\n'
     }
 

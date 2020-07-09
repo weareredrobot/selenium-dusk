@@ -1,5 +1,5 @@
 module.exports = {
-    commands: function(commands, counter)
+    commands: function(uploadsBasePath, commands, counter)
     {
         const Dusk = require('./commands/dusk');
         const converter = new Dusk();
@@ -13,7 +13,7 @@ module.exports = {
                     if(commands[i].targets.length > 0){
 
                         getCSSFinder(commands[i].targets, function(cssPath){
-                            var duskMethod = converter[commands[i].command](cssPath, commands[i].value, commands[i].target);
+                            var duskMethod = converter[commands[i].command](cssPath, commands[i].value, commands[i].target, uploadsBasePath);
                             duskTest += duskMethod;
                         })
 

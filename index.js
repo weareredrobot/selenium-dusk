@@ -16,11 +16,11 @@ require('yargs')
                 default: '/',
                 description: 'Output path of Dusk tests'
             })
-            .option('type', {
-                alias: 't',
+            .option('uploadsBasePath', {
+                alias: 'u',
                 type: 'string',
-                default: 'dusk',
-                description: 'Choose to what commands you want to convert to'
+                default: '',
+                description: 'Set the path where you want to upload files from'
             })
     }, (argv) => 
     {
@@ -44,7 +44,7 @@ require('yargs')
                         var templateFunctionFile = data.data;
 
                         for(var i = 0; i < seleniumFile.tests.length; i++){
-                            convert.commands(seleniumFile.tests[i].commands, i)
+                            convert.commands(uploadsBasePath, seleniumFile.tests[i].commands, i)
                             .then(function(data){
                                 var tempTemplateFunctionFile = templateFunctionFile;
                                 var functionName = seleniumFile.tests[data["counter"]].name.replace(" ", "");
