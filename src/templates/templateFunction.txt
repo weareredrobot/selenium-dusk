@@ -1,5 +1,5 @@
-public function {{name}}(){
+public function {{{name}}}(){
     $this->browse(function (Browser $browser){
-        {{function}}
+        {{{function}}}
     });
 }
