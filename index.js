@@ -1,5 +1,7 @@
 const   files = require("./src/fileSystem"),
-        convert = require('./src/convert');
+        convert = require('./src/convert'),
+        Handlebars = require('handlebars');
+        
 
 var seleniumFile, templateFile, templateFunctionFile, templateArrayFunctionFile = [], counter = 0;
 
@@ -38,28 +40,36 @@ require('yargs')
                 var seleniumFile = JSON.parse(data["data"]);
 
                 files.read('./src/templates/template.txt', function(data){
-                    var templateFile = data.data;
+                    var templateFile = Handlebars.compile(data.data);
 
                     files.read('./src/templates/templateFunction.txt', function(data){
-                        var templateFunctionFile = data.data;
+                        var templateFunctionFile = Handlebars.compile(data.data);
 
                         for(var i = 0; i < seleniumFile.tests.length; i++){
                             convert.commands(uploadsBasePath, seleniumFile.tests[i].commands, i)
                             .then(function(data){
                                 var tempTemplateFunctionFile = templateFunctionFile;
+
+                                //Clear spaces if there are any
                                 var functionName = seleniumFile.tests[data["counter"]].name.replace(" ", "");
 
-                                tempTemplateFunctionFile = tempTemplateFunctionFile.replace("{{name}}", functionName);
-                                tempTemplateFunctionFile = tempTemplateFunctionFile.replace("{{function}}", data["function"]);
+                                var data = {
+                                    'name': functionName,
+                                    'function': data["function"]
+                                }
 
-                                templateArrayFunctionFile.push(tempTemplateFunctionFile);
+                                templateArrayFunctionFile.push(tempTemplateFunctionFile(data));
                             })
                             .then(function(){
                                 counter++;
 
                                 if(counter >= seleniumFile.tests.length){
-                                    templateFile = templateFile.replace("{{method}}", templateArrayFunctionFile.join(''));
-                                    templateFile = templateFile.replace("{{testClassName}}", seleniumFile.name)
+                                    var data = {
+                                        'method': templateArrayFunctionFile.join(''),
+                                        'testClassName': seleniumFile.name
+                                    }
+
+                                    templateFile = templateFile(data);
 
                                     files.write(output + "/" + seleniumFile.name + ".php", templateFile, function(status){
                                         if(status){
