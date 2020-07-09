@@ -17,4 +17,4 @@ Simply run `index [path] -o [outputPath]`
 |--help|Show help| Boolean
 |--version|Show version number| Boolean
 |--output or -o| Output path of Dusk tests | String - Default:"/"
-|--uploadsBasePath, -u| Set the path where you want to upload files from| String - Default: Default directory from Selenium test
+|--uploadsBasePath or -u| Set the path where you want to upload files from| String - Default: Directory from Selenium test
