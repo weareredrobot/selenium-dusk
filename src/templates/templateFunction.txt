@@ -1,5 +1,7 @@
-public function {{{name}}}(){
-    $this->browse(function (Browser $browser){
-        {{{function}}}
+public function {{{name}}}() {
+    $this->browse(function (Browser $browser) {
+        $browser
+            {{> assertion}}
     });
 }
+

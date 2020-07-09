@@ -2,11 +2,11 @@ const path = require('path');
 
 module.exports = function() {
     this.click = function(cssPath){
-        return '$browser->assertPresent("' + cssPath + '")->click("' + cssPath + '");\n';
+        return '->assertPresent("' + cssPath + '")->click("' + cssPath + '")\n';
     }
     
     this.open = function(target){
-        return '$browser->visit("' + target + '");\n'
+        return '->visit("' + target + '")\n'
     }
 
     this.type = function(cssPath, value, target, uploadsBasePath){
@@ -14,12 +14,12 @@ module.exports = function() {
             var split = value.split("/");
             value = uploadsBasePath + split[split.length-1];
         }
-        return '$browser->type("' + cssPath + '","' + value + '");\n'
+        return '->type("' + cssPath + '","' + value + '")\n'
     }
 
     this.setWindowSize = function(value){
         var split = value.split("x");
-        return '$browser->resize(' + split[0] + ', ' + split[1] + ');\n' 
+        return '->resize(' + split[0] + ', ' + split[1] + ')\n' 
     }
 
     this.sendKeys = function(cssPath, value){
@@ -39,7 +39,7 @@ function convertKey(cssPath, key)
 
         if(keyConversion[Object.keys(keyConversion)[i]] == key){
             found = true;
-            return '$browser->keys("' + cssPath + '", "' + Object.keys(keyConversion)[i] + '");\n';
+            return '->keys("' + cssPath + '", "' + Object.keys(keyConversion)[i] + '")\n';
         }
 
         if(i + 1 >= Object.keys(keyConversion).length && !found){

@@ -7,5 +7,5 @@ use Tests\DuskTestCase;
 
 class {{{testClassName}}} extends DuskTestCase
 {
-    {{{method}}}
+    {{> method}}
 }

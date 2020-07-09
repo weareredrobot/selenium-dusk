@@ -5,7 +5,7 @@ let Convert = {
 
     convert (uploadsBasePath, commands, counter) {
         const converter = new Dusk();
-        this.result = '';
+        this.result = [];
 
         return new Promise((resolve, reject) => {
             for(let i = 0; i < commands.length; i++) {
@@ -14,16 +14,16 @@ let Convert = {
                 if(command in converter && typeof converter[command] == 'function') {
                     if(commands[i].targets.length > 0) {
                         this.getCSSFinder(commands[i].targets, (cssPath) => {
-                            this.result += converter[command](cssPath, commands[i].value, commands[i].target, uploadsBasePath);
+                            this.result.push(converter[command](cssPath, commands[i].value, commands[i].target, uploadsBasePath));
                         });
                     } else {
-                      this.result += converter[command](commands[i].target);
+                      this.result.push(converter[command](commands[i].target));
                     }
                 }
             }
 
             const data = {
-                function: this.result,
+                assertions: this.result,
                 counter
             };
 
