@@ -116,3 +116,4 @@ dist
 *.side
 *.php
 .vscode/
+.eslintrc.js
