@@ -35,8 +35,6 @@ require('yargs')
                 console.log("Error reading the file (possibly wrong input)")
             }
             else{
-                console.log("Received input file");
-
                 var seleniumFile = JSON.parse(data["data"]);
 
                 files.read('./src/templates/template.txt', function(data){
@@ -61,7 +59,6 @@ require('yargs')
                                 templateArrayFunctionFile.push(result);
                             })
                             .then(function(){
-                                console.log(templateArrayFunctionFile)
                                 counter++;
 
                                 if(counter >= seleniumFile.tests.length){
