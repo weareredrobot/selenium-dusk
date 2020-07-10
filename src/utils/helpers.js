@@ -15,4 +15,6 @@ module.exports = {
   },
 
   removeSpecialCharacters: string => string.replace(/[^\w\s]/gi, ''),
+
+  removeNumbers: string => string.replace(/[0-9]/g, ''),
 }

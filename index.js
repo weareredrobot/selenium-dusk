@@ -49,6 +49,7 @@ require('yargs')
                             .then(function (data) {
                               //Clear spaces if there are any
                               var functionName = helpers.removeSpecialCharacters(seleniumFile.tests[data["counter"]].name);
+                              functionName = helpers.removeNumbers(functionName);
                               functionName = helpers.phpTestCaseName(functionName);
 
                               var result = ejs.render(templateFunctionFile, {
@@ -64,6 +65,7 @@ require('yargs')
                                 if(counter >= seleniumFile.tests.length){
 
                                   var fileName = helpers.removeSpecialCharacters(`/${seleniumFile.name} Test`);
+                                  fileName = helpers.removeNumbers(fileName);
                                   fileName = helpers.capitalizeWords(fileName);
 
                                   var result = ejs.render(templateFile, {
