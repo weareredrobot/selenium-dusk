@@ -4,7 +4,7 @@ const Convert = {
   result: '',
 
   convert (uploadsBasePath, commands, counter) {
-    const converter = new Dusk();
+    const converter = Dusk;
     this.result = [];
 
     return new Promise((resolve, reject) => {

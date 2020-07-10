@@ -1,15 +1,16 @@
 const path = require('path');
 
-module.exports = function () {
-  this.click = function (cssPath) {
+module.exports = {
+
+  click: (cssPath) => {
     return `->assertPresent("${cssPath}")->click("${cssPath}")\n`;
-  };
+  },
 
-  this.open = function (target) {
+  open: (target) => {
     return `->visit("${target}")\n`;
-  };
+  },
 
-  this.type = function (cssPath, value, target, uploadsBasePath) {
+  type: (cssPath, value, target, uploadsBasePath) => {
     let uploadBasePath = value;
 
     if (value !== path.basename(value) && uploadsBasePath !== '') {
@@ -17,16 +18,17 @@ module.exports = function () {
       uploadBasePath = uploadsBasePath + split[split.length - 1];
     }
     return `->type("${cssPath}","${uploadBasePath}")\n`;
-  };
+  },
 
-  this.setWindowSize = function (value) {
+  setWindowSize: (value) => {
     const split = value.split('x');
     return `->resize(${split[0]}, ${split[1]})\n`;
-  };
+  },
 
-  this.sendKeys = function (cssPath, value) {
+  sendKeys: (cssPath, value) => {
     return convertKey(cssPath, value);
-  };
+  }
+
 };
 
 function convertKey (cssPath, key) {
@@ -34,16 +36,13 @@ function convertKey (cssPath, key) {
     '{enter}': '${KEY_ENTER}'
   };
 
-  let found = false;
+  const keys = Object.keys(keyConversion);
 
-  for (let i = 0; i < Object.keys(keyConversion).length; i += 1) {
-    if (keyConversion[Object.keys(keyConversion)[i]] === key) {
-      found = true;
-      return `->keys("${cssPath}", "${Object.keys(keyConversion)[i]}")\n`;
+  keys.forEach((value, index) => {
+    if (key === value) {
+      return `->keys("${cssPath}", "${keys[index]}")\n`;
     }
+  });
 
-    if (i + 1 >= Object.keys(keyConversion).length && !found) {
-      return "Couldn't find key";
-    }
-  }
+  return false;
 }

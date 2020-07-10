@@ -24,7 +24,7 @@ require('yargs')
                 default: '',
                 description: 'Set the path where you want to upload files from'
             })
-    }, (argv) => 
+    }, (argv) =>
     {
         var input = argv.path;
         var output = argv.output;
@@ -84,7 +84,7 @@ require('yargs')
                                             console.log("Failed to convert test");
                                         }
                                     })
-                                }    
+                                }
                             })
                         }
                     });
