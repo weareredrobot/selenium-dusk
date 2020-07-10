@@ -1,7 +1,12 @@
-public function {{{name}}}() {
+public function <%- name %>() {
     $this->browse(function (Browser $browser) {
-        $browser
-            {{> assertion}}
+      $browser
+        <%_ for(var i=0; i < assertions.length; i++) { _%>
+        <%_ if(i == assertions.length - 1) { _%>
+        <%- assertions[i] + ";\n" _%>
+        <%_ } else { _%>
+        <%- assertions[i] + "\n" _%>
+        <%_ }} _%>
     });
-}
-
+  }
+  
