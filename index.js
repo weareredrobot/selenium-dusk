@@ -1,6 +1,7 @@
 const ejs = require('ejs');
 const files = require('./src/fileSystem');
 const convert = require('./src/convert');
+const helpers = require('./src/utils/helpers');
 
 const templateArrayFunctionFile = [];
 let counter = 0;
@@ -46,16 +47,15 @@ require('yargs')
                         for(var i = 0; i < seleniumFile.tests.length; i++){
                             convert.convert(uploadsBasePath, seleniumFile.tests[i].commands, i)
                             .then(function (data) {
-                              var tempTemplateFunctionFile = templateFunctionFile;
-
                               //Clear spaces if there are any
-                              var functionName = seleniumFile.tests[data["counter"]].name.replace(" ", "");
+                              var functionName = helpers.removeSpecialCharacters(`test${seleniumFile.tests[data["counter"]].name}`);
+                              functionName = helpers.parseString(functionName);
 
                               var result = ejs.render(templateFunctionFile, {
                                 'name': functionName,
                                 'assertions': data["assertions"],
                               })
-                              
+
                               templateArrayFunctionFile.push(result);
                             })
                             .then(function(){
@@ -63,18 +63,21 @@ require('yargs')
 
                                 if(counter >= seleniumFile.tests.length){
 
-                                    var result = ejs.render(templateFile, {
-                                      'method': templateArrayFunctionFile,
-                                      'testClassName' : seleniumFile.name,
-                                    })
+                                  var fileName = helpers.removeSpecialCharacters(`/${seleniumFile.name} Test`);
+                                  fileName = helpers.capitalizeWords(fileName);
 
-                                    files.write(output + "/" + seleniumFile.name + ".php", result, function(status){
-                                        if(status){
-                                            console.log("Finished.");
-                                        } else {
-                                            console.log("Failed.");
-                                        }
-                                    })
+                                  var result = ejs.render(templateFile, {
+                                    'method': templateArrayFunctionFile,
+                                    'testClassName' : fileName,
+                                  })
+
+                                  files.write(output + fileName + '.php', result, function(status){
+                                      if(status){
+                                          console.log("Finished.");
+                                      } else {
+                                          console.log("Failed.");
+                                      }
+                                  })
                                 }
                             })
                             .catch(function (data) {
