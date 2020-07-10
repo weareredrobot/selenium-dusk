@@ -29,7 +29,7 @@ const Convert = {
               }
             });
           } else {
-            this.result.push(converter[command](commands[i].target));
+            this.result.push(converter[command](commands[i].target, commands[i].value));
           }
         } else {
           const err = {

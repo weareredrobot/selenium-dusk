@@ -22,7 +22,18 @@ module.exports = {
     return `->resize(${split[0]}, ${split[1]})`;
   },
 
-  sendKeys: (cssPath, value) => convertKey(cssPath, value)
+  sendKeys: (cssPath, value) => convertKey(cssPath, value),
+
+  select: (target, value) => {
+    let label = value.split("=")[1];
+    return `->select("${target}", "${label}")`;
+  },
+
+  mouseDownAt: (cssPath) => `->mouseover("${cssPath}")->clickAndHold()`,
+
+  mouseMoveAt: (cssPath) => `->mouseover("${cssPath})`,
+
+  mouseUpAt: (cssPath) => `->mouseover("${cssPath})->releaseMouse()`,
 };
 
 function convertKey (cssPath, key) {
