@@ -1,3 +1,7 @@
 {
-  "extends": ["airbnb-standard"]
+  "extends": ["airbnb-standard"],
+  "rules": {
+    "consistent-return": "off",
+    "no-template-curly-in-string": "off"
+  }
 }
