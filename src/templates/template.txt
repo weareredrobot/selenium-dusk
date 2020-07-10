@@ -5,7 +5,9 @@ namespace Tests\Browser;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class {{{testClassName}}} extends DuskTestCase
+class <%- testClassName %> extends DuskTestCase
 {
-    {{> method}}
+  <%_ for(var i=0; i < method.length; i++) { _%>
+  <%- method[i] + "\n" _%>
+  <%_ } _%>
 }
