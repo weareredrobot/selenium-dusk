@@ -2,9 +2,9 @@ const path = require('path');
 
 module.exports = {
 
-  click: cssPath => `->assertPresent("${cssPath}")->click("${cssPath}")\n`,
+  click: cssPath => `->assertPresent("${cssPath}")->click("${cssPath}")`,
 
-  open: target => `->visit("${target}")\n`,
+  open: target => `->visit("${target}")`,
 
   type: (cssPath, value, target, uploadsBasePath) => {
     let uploadBasePath = value;
@@ -14,12 +14,12 @@ module.exports = {
       uploadBasePath = uploadsBasePath + split[split.length - 1];
     }
 
-    return `->type("${cssPath}","${uploadBasePath}")\n`;
+    return `->type("${cssPath}","${uploadBasePath}")`;
   },
 
   setWindowSize: (value) => {
     const split = value.split('x');
-    return `->resize(${split[0]}, ${split[1]})\n`;
+    return `->resize(${split[0]}, ${split[1]})`;
   },
 
   sendKeys: (cssPath, value) => convertKey(cssPath, value)
@@ -34,7 +34,7 @@ function convertKey (cssPath, key) {
 
   keys.forEach((value, index) => {
     if (key === value) {
-      return `->keys("${cssPath}", "${keys[index]}")\n`;
+      return `->keys("${cssPath}", "${keys[index]}")`;
     }
   });
 
