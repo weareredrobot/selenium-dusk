@@ -83,7 +83,7 @@ require('yargs')
                                 }
                             })
                             .catch(function (data) {
-                              console.log(`${data.err} Skipping ${seleniumFile.tests[data.counter].name}`);
+                              console.log(`${data.err} Method -> ${seleniumFile.tests[data.counter].name}`);
                             })
                         }
                     });
