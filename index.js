@@ -73,9 +73,9 @@ require('yargs')
 
                                   files.write(output + fileName + '.php', result, function(status){
                                       if(status){
-                                          console.log("Finished.");
+                                        console.log(`File is ready at ${output}${fileName}.php`);
                                       } else {
-                                          console.log("Failed.");
+                                        console.log("Couldn't find the output path");
                                       }
                                   })
                                 }
