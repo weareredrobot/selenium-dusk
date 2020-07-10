@@ -45,18 +45,18 @@ require('yargs')
 
                         for(var i = 0; i < seleniumFile.tests.length; i++){
                             convert.convert(uploadsBasePath, seleniumFile.tests[i].commands, i)
-                            .then(function(data){
-                                var tempTemplateFunctionFile = templateFunctionFile;
+                            .then(function (data) {
+                              var tempTemplateFunctionFile = templateFunctionFile;
 
-                                //Clear spaces if there are any
-                                var functionName = seleniumFile.tests[data["counter"]].name.replace(" ", "");
+                              //Clear spaces if there are any
+                              var functionName = seleniumFile.tests[data["counter"]].name.replace(" ", "");
 
-                                var result = ejs.render(templateFunctionFile, {
-                                  'name': functionName,
-                                  'assertions': data["assertions"],
-                                })
-
-                                templateArrayFunctionFile.push(result);
+                              var result = ejs.render(templateFunctionFile, {
+                                'name': functionName,
+                                'assertions': data["assertions"],
+                              })
+                              
+                              templateArrayFunctionFile.push(result);
                             })
                             .then(function(){
                                 counter++;
@@ -70,12 +70,15 @@ require('yargs')
 
                                     files.write(output + "/" + seleniumFile.name + ".php", result, function(status){
                                         if(status){
-                                            console.log("Test converted");
+                                            console.log("Finished.");
                                         } else {
-                                            console.log("Failed to convert test");
+                                            console.log("Failed.");
                                         }
                                     })
                                 }
+                            })
+                            .catch(function (data) {
+                              console.log(`${data.err} Skipping ${seleniumFile.tests[data.counter].name}`);
                             })
                         }
                     });

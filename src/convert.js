@@ -6,6 +6,7 @@ const Convert = {
   convert (uploadsBasePath, commands, counter) {
     const converter = Dusk;
     this.result = [];
+    this.err = "";
 
     return new Promise((resolve, reject) => {
       for (let i = 0; i < commands.length; i += 1) {
@@ -14,17 +15,34 @@ const Convert = {
         if (command in converter && typeof converter[command] === 'function') {
           if (commands[i].targets.length > 0) {
             this.getCSSFinder(commands[i].targets, (cssPath) => {
-              this.result.push(
-                converter[command](cssPath, commands[i].value, commands[i].target, uploadsBasePath)
-              );
+              if (cssPath.err) {
+                const err = {
+                  err: `${cssPath.err}${commands[i].id}.`,
+                  counter: counter,
+                }
+
+                reject(err);
+              } else {
+                this.result.push(
+                  converter[command](cssPath, commands[i].value, commands[i].target, uploadsBasePath)
+                );
+              }
             });
           } else {
             this.result.push(converter[command](commands[i].target));
           }
+        } else {
+          const err = {
+            err: `${command} is not supported.`,
+            counter: counter,
+          }
+
+          reject(err);
         }
       }
 
       const data = {
+        err: this.err,
         assertions: this.result,
         counter
       };
@@ -45,7 +63,7 @@ const Convert = {
       }
 
       if (i + 1 >= targets.length && !found) {
-        callback();
+        callback({err: "CSS path not found in "});
       }
     }
   }
