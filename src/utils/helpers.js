@@ -2,7 +2,7 @@ const slugify = require('slugify');
 const camelCase = require('camelcase');
 
 module.exports = {
-  parseString: string => camelCase(slugify(string)),
+  phpTestCaseName: string => camelCase(`test${slugify(string)}`),
 
   capitalizeWords: (string) => {
     let split = string.trim().split(' ');

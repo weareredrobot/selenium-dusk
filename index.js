@@ -48,8 +48,8 @@ require('yargs')
                             convert.convert(uploadsBasePath, seleniumFile.tests[i].commands, i)
                             .then(function (data) {
                               //Clear spaces if there are any
-                              var functionName = helpers.removeSpecialCharacters(`test${seleniumFile.tests[data["counter"]].name}`);
-                              functionName = helpers.parseString(functionName);
+                              var functionName = helpers.removeSpecialCharacters(seleniumFile.tests[data["counter"]].name);
+                              functionName = helpers.phpTestCaseName(functionName);
 
                               var result = ejs.render(templateFunctionFile, {
                                 'name': functionName,
