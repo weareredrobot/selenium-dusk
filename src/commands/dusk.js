@@ -25,29 +25,27 @@ module.exports = {
   sendKeys: (cssPath, value) => convertKey(cssPath, value),
 
   select: (target, value) => {
-    let label = value.split("=")[1];
-    return `->select("${target}", "${label}")`;
+    const label = value.split('=')[1];
+    let id = `#${target.split('=')[1]}`;
+    id = id.replace(/[-[\]\\';,./{}|":<>?~]/g, '\\$&');
+    return `->select("${id}", "${label}")`;
   },
 
-  mouseDownAt: (cssPath) => `->mouseover("${cssPath}")->clickAndHold()`,
+  mouseDownAt: cssPath => `->mouseover("${cssPath}")->clickAndHold()`,
 
-  mouseMoveAt: (cssPath) => `->mouseover("${cssPath})`,
+  mouseMoveAt: cssPath => `->mouseover("${cssPath}")`,
 
-  mouseUpAt: (cssPath) => `->mouseover("${cssPath})->releaseMouse()`,
+  mouseUpAt: cssPath => `->mouseover("${cssPath}")->releaseMouse()`
 };
 
-function convertKey (cssPath, key) {
+function convertKey (cssPath, value) {
   const keyConversion = {
     '{enter}': '${KEY_ENTER}'
   };
 
-  const keys = Object.keys(keyConversion);
-
-  keys.forEach((value, index) => {
-    if (key === value) {
-      return `->keys("${cssPath}", "${keys[index]}")`;
-    }
-  });
+  if (Object.values(keyConversion).indexOf(value) !== -1) {
+    return `->keys("${cssPath}","${Object.keys(keyConversion).find(key => keyConversion[key] === value)}")`;
+  }
 
   return false;
 }

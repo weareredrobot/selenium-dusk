@@ -18,7 +18,7 @@ const Convert = {
               if (cssPath.err) {
                 const err = {
                   err: `${cssPath.err}${commands[i].id}.`,
-                  counter: counter,
+                  counter
                 }
 
                 reject(err);
@@ -34,8 +34,8 @@ const Convert = {
         } else {
           const err = {
             err: `${command} is not supported.`,
-            counter: counter,
-          }
+            counter
+          };
 
           reject(err);
         }
@@ -63,7 +63,7 @@ const Convert = {
       }
 
       if (i + 1 >= targets.length && !found) {
-        callback({err: "CSS path not found in "});
+        callback({err: 'CSS path not found in '});
       }
     }
   }
