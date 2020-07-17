@@ -30,7 +30,7 @@ files.read('./docs/Commands.ts', (data) => {
           i += 1;
         }
 
-        description = description.replace(/[,`]/g, '');
+        description = description.replace(/[,`'"]/g, '');
         name = name.replace(/[,']/g, '').trim();
 
         if (command in converter && typeof converter[command] === 'function') {
