@@ -4,6 +4,12 @@ module.exports = {
 
   click: cssPath => `->assertPresent("${cssPath}")->click("${cssPath}")`,
 
+  doubleClick: cssPath => `->assertPresent("${cssPath}")->doubleClick("${cssPath}")`,
+
+  dragAndDropToObject: (cssPath, value) => `->drag("${cssPath}", "${value}")`,
+
+  pause: cssPath => `->pause(${cssPath})`,
+
   open: target => `->visit("${target}")`,
 
   type: (cssPath, value, target, uploadsBasePath) => {
@@ -40,7 +46,15 @@ module.exports = {
 
 function convertKey (cssPath, value) {
   const keyConversion = {
-    '{enter}': '${KEY_ENTER}'
+    '{enter}': '${KEY_ENTER}',
+    '{arrow_up}': '${KEY_UP}',
+    '{arrow_right}': '${KEY_RIGHT}',
+    '{arrow_left}': '${KEY_LEFT}',
+    '{arrow_down}': '${KEY_DOWN}',
+    '{tab}': '${KEY_TAB}',
+    '{shift}': '${KEY_SHIFT}',
+    '{delete}': '${KEY_DEL}',
+    '{delete}': '${KEY_DELETE}',
   };
 
   if (Object.values(keyConversion).indexOf(value) !== -1) {
