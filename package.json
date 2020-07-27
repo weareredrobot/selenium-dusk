@@ -7,7 +7,7 @@
     "test": "mocha test"
   },
   "contributors": [
-    "hello@red-robot.co.uk", 
+    "hello@red-robot.co.uk",
     "ricardojg1@hotmail.com"
   ],
   "license": "ISC",
