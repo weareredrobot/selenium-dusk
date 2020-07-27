@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Dusk = require('./src/commands/dusk');
+const Dusk = require('../src/commands/dusk');
 const { exec } = require("child_process");
 
 const commands = {
@@ -77,7 +77,7 @@ describe('Commands', function () {
 
   describe('#generate_php', function () {
     it('Should pass if generated php file has correct syntax', function () {
-      exec("node index ./src/side/test.side -o ./src/php/", (error, stdout, stderr) => {
+      exec("node index ./test/side/test.side -o ./test/php/", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -86,8 +86,8 @@ describe('Commands', function () {
             console.log(`stderr: ${stderr}`);
             return;
         }
-        assert.equal(stdout, `File is ready at ./src/php/TestTest.php\n`);
-        exec("php -l ./src/php/TestTest.php", (error, stdout, stderr) => {
+        assert.equal(stdout, `File is ready at ./test/php/TestTest.php\n`);
+        exec("php -l ./test/php/TestTest.php", (error, stdout, stderr) => {
           if (error) {
               console.log(`error: ${error.message}`);
               return;

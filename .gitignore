@@ -113,7 +113,7 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
-*.side
-*.php
+/src/php/*
+/src/side/*
 .vscode/
 .eslintrc.js
