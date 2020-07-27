@@ -53,9 +53,9 @@ Convert Selenium tests to Dusk tests with a simple CLI.
 |close| Closes the current window. There is no need to close the initial window IDE will re-use it; closing it may cause a performancepenalty on the test.|❌|
 |debugger| Breaks the execution and enters debugger|❌|
 |do| Create a loop that executes the proceeding commands at least once. Terminate the branch with the repeat if command.|❌|
-|double click| Double clicks on an element (e.g. a link button checkbox or radio button).|❌|
+|double click| Double clicks on an element (e.g. a link button checkbox or radio button).|✅|
 |double click at| Double clicks on a target element (e.g. a link button checkbox or radio button). The coordinates are relative to the targetelement (e.g. 00 is the top left corner of the element) and are mostly used to check effects that relay on them for example the materialripple effect.|❌|
-|drag and drop to object| Drags an element and drops it on another element.|❌|
+|drag and drop to object| Drags an element and drops it on another element.|✅|
 |echo| Prints the specified message into the third table cell in your Selenese tables. Useful for debugging.|❌|
 |edit content| Sets the value of a content editable element as if you typed in it.|❌|
 |else| Part of an if block. Execute the commands in this branch when an if and/or else if condition are not met. Terminate the branchwith the end command.|❌|
@@ -73,7 +73,7 @@ Convert Selenium tests to Dusk tests with a simple CLI.
 |mouse up| Simulates the event that occurs when the user releases the mouse button (e.g. stops holding the button down).|❌|
 |mouse up at| Simulates the event that occurs when the user releases the mouse button (e.g. stops holding the button down) at the specified location.|✅|
 |open| Opens a URL and waits for the page to load before proceeding. This accepts both relative and absolute URLs.|✅|
-|pause| Wait for the specified amount of time.|❌|
+|pause| Wait for the specified amount of time.|✅|
 |remove selection| Remove a selection from the set of selected options in a multi-select element using an option locator.|❌|
 |repeat if| Terminate a do control flow branch conditionally. If the result of the provided conditional expression is true it startsthe do loop over.  Otherwise it ends the loop.|❌|
 |run| Runs a test case from the current project.|❌|
