@@ -1,8 +1,10 @@
 ##  sDusk
 
+This tool is a beta software that works for our intended purposes. Issues and pull requests are welcome!
+
 Convert Selenium tests to Dusk tests with a simple CLI.
 
-Simply run `index [path] -o [outputPath]`
+Run `index [path] -o [outputPath]` to generate a Dusk test.
 
 **Positionals**
 |Name|Description|Default|
