@@ -14,7 +14,7 @@ module.exports = {
 
   write: (path, data, callback) => {
     fs.writeFile(path, data, (err) => {
-      if(err) callback(0);
+      if (err) callback(0);
       callback(1);
     })
   },
