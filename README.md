@@ -4,16 +4,16 @@ This tool is a beta software that works for our intended purposes. Issues and pu
 
 Convert Selenium tests to Dusk tests with a simple CLI.
 
-Run `index [path] -o [outputPath]` to generate a Dusk test.
+**Installation**
+1. Run `npm install` inside the repository.
+2. All done! Run `index [path] -o [outputPath]` to generate a Dusk test.
 
 **Positionals**
 |Name|Description|Default|
 |--|--|--|
 |path|Path to Selenium test|null|
 
-
 **Arguments**
-
 |Options|Description|Type
 |--|--|--|
 |--help|Show help| Boolean
