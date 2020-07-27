@@ -97,7 +97,7 @@ describe('Commands', function () {
               console.log(`stderr: ${stderr}`);
               return;
           }
-          assert.equal(stdout, `No syntax errors detected in ./src/php/TestTest.php\n`);
+          assert.equal(stdout, `No syntax errors detected in ./test/php/TestTest.php\n`);
         });
       });
     });
@@ -105,7 +105,17 @@ describe('Commands', function () {
 
   describe('#php_file_is_valid', function () {
     it('Should pass if PHP file is valid', function () {
-      
+      exec("php -l ./test/php/TestTest.php", (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        assert.equal(stdout, `No syntax errors detected in ./test/php/TestTest.php\n`);
+      });
     });
   });
   
