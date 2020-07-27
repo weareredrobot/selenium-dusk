@@ -1,0 +1,24 @@
+{
+  "name": "sdusk-testing",
+  "version": "1.0.0",
+  "description": "Tests for sDusk",
+  "main": "test.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "Red Robot Digital Ltd",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^8.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-standard": "^3.1.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}

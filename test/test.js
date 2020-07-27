@@ -1,5 +1,6 @@
 const assert = require('assert');
 const Dusk = require('../src/commands/dusk');
+const fs = require('fs');
 const { exec } = require("child_process");
 
 const commands = {
@@ -99,6 +100,12 @@ describe('Commands', function () {
           assert.equal(stdout, `No syntax errors detected in ./src/php/TestTest.php\n`);
         });
       });
+    });
+  });
+
+  describe('#php_file_is_valid', function () {
+    it('Should pass if PHP file is valid', function () {
+      
     });
   });
   
